@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글쓰기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-4">
+        <input id="title" class="form-control" type="text" placeholder="글제목">
+        <textarea id="body" class="form-control mt-2" rows="10"></textarea>
+        <div class="text-center">
+            <button id="submit" class="btn btn-primary">글쓰기</button>
+        </div>
+    </div>
+
+    <script>
+        var submitBtn=document.getElementById("submit") //글쓰기 버튼
+        submitBtn.addEventListener("click",function(){
+            //글쓰기 버튼이 클릭됐을때
+            var title=document.getElementById("title").value    //제목 input 에 써진 값
+            var body=document.getElementById("body").value      //내용 textarea 에 써진 값
+
+            //글 내용을 서버로 보내기
+            fetch("/api/article",{
+                method:"post",
+                headers:{
+                    "Content-type":"application/json"
+                },
+                body:JSON.stringify({
+                    title:title,
+                    body:body
+                })
+            })
+        })
+
+    </script>
+</body>
+</html>
