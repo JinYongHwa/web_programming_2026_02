@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .article{
+            padding:8px 16px;
+            border-bottom:1px solid #eee;
+            text-decoration: none;
+            display:block;
+        }
+        .article:hover{
+            cursor:pointer;
+            background:#eee;
+        }
+        .article .title{
+            font-size:16px;
+            font-weight:700;
+            color:black;
+        }
+        .article .date{
+            text-align:right;
+            color:#999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-right">
+            <a href="/write" class="btn btn-primary">글쓰기</a>
+        </div>
+        <a th:href="@{/view/{no}(no=${article.no})}" class="article" th:each="article : ${list}">
+            <div class="title" th:text="${article.title}">글제목</div>
+            <div class="date" th:text="${article.writeDate}">글작성시간</div>
+        </a>
+    </div>
+</body>
+</html>

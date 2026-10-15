@@ -32,6 +32,18 @@
                     body:body
                 })
             })
+            .then(function(response){
+                return response.json()          //응답  text 를 json 타입으로 변경
+            })
+            .then(function(json){
+                console.log(json)
+                if(json.success){       //글쓰기가 성공했을경우
+                    location.href="/view/"+json.article.no
+                }
+                else{   //글쓰기 실패시
+                    alert(json.message)
+                }
+            })
         })
 
     </script>

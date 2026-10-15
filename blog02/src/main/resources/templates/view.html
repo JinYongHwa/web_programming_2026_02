@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        h1{
+            padding:10px;
+            border-bottom: 1px solid #eee;
+        }
+        .date{
+            text-align:right;
+            color:#999;
+        }
+        p{
+            background:#eee;
+            min-height:500px;
+            padding:16px;
+            border-radius: 12px;
+            margin-top:16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${article.title}"></h1>
+        <div class="date" th:text="${article.writeDate}"></div>
+        <p th:text="${article.body}"></p>
+        <div class="text-center mt-4">
+            <a class="btn btn-primary" href="/">목록</a>
+        </div>
+    </div>
+</body>
+</html>
