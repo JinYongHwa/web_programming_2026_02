@@ -40,6 +40,15 @@ public class ViewController {
         return mav;
     }
 
+    @GetMapping("/modify/{no}")
+    public ModelAndView modify(@PathVariable("no") long no){
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("modify");
+        Article article=articleService.getItem(no);     //데이터베이스에 있는 글 가져오기
+        mav.addObject("article",article);
+        return mav;
+    }
+
 
 
 

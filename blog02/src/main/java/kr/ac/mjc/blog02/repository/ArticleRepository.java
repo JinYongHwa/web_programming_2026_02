@@ -14,4 +14,5 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
 
     List<Article> findAll();
 
+    void deleteById(Long aLong);
 }
