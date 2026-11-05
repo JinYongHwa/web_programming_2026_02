@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="email" class="form-control mt-2" placeholder="이메일">
+        <input type="password" id="password" class="form-control mt-2" placeholder="비밀번호">
+        <input type="password" id="password2" class="form-control mt-2" placeholder="비밀번호 확인">
+        <input type="text" id="name" class="form-control mt-2" placeholder="이름">
+        <div class="text-center mt-2">
+            <button id="join" class="btn btn-primary">회원가입</button>
+        </div>
+    </div>
+    <script>
+        var joinBtn=document.getElementById("join")     //회원가입 버튼
+        joinBtn.addEventListener("click",function(){
+            //회원가입 버튼이 클릭됐을때
+            var email=document.getElementById("email").value
+            var password=document.getElementById("password").value
+            var password2=document.getElementById("password2").value
+            var name=document.getElementById("name").value
+
+            if(password!=password2){
+                alert("비밀번호를 다시 확인하세요")
+                document.getElementById("password2").value=""
+                document.getElementById("password2").focus()
+                return
+            }
+            fetch("/api/user/join",{
+                method:"post",
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify({
+                    email:email,
+                    password:password,
+                    name:name
+                })
+            })
+                .then(response=>{
+                    return response.json()
+                })
+                .then(userResponse=>{
+                    if(userResponse.success){   //회원가입 성공시
+                        alert("회원가입이 완료되었습니다")
+                        location.href="/login"          //로그인창으로 이동시키기
+                    }
+                    else{       //회원가입 실패시
+                        alert(userResponse.message)
+                    }
+                })
+
+        })
+    </script>
+</body>
+</html>
