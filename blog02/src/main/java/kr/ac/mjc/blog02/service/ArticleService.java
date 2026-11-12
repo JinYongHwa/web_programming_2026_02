@@ -25,7 +25,7 @@ public class ArticleService {
     }
 
     public List<Article> getList(){
-        return articleRepository.findAll();
+        return articleRepository.findAllByOrderByWriteDateDesc();
     }
 
     //글번호를 받아서 글이 있으면 삭제

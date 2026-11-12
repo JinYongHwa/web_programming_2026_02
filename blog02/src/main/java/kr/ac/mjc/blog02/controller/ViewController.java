@@ -1,7 +1,10 @@
 package kr.ac.mjc.blog02.controller;
 
+import jakarta.servlet.http.HttpSession;
 import kr.ac.mjc.blog02.model.Article;
+import kr.ac.mjc.blog02.model.User;
 import kr.ac.mjc.blog02.service.ArticleService;
+import kr.ac.mjc.blog02.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,9 @@ public class ViewController {
 
     @Autowired
     ArticleService articleService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/write")
     public String write(){
@@ -31,12 +37,21 @@ public class ViewController {
     }
 
     @GetMapping("/")
-    public ModelAndView main(){
+    public ModelAndView main(HttpSession session){
         ModelAndView mav=new ModelAndView();
 
         List<Article> articleList=articleService.getList();
         mav.setViewName("main");
         mav.addObject("list",articleList);
+
+        //로그인이 되어있을경우
+        if(session.getAttribute("userId")!=null){
+            String email=(String)session.getAttribute("userId");
+            User user=userService.getUser(email);
+            mav.addObject("user",user);
+        }
+
+
         return mav;
     }
 
@@ -56,6 +71,12 @@ public class ViewController {
     @GetMapping("/login")
     public String login(){
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("userId");
+        return "redirect:/";
     }
 
 

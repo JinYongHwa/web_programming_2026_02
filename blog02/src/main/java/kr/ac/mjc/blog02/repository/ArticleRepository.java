@@ -13,6 +13,7 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
     Optional<Article> findById(long no);
 
     List<Article> findAll();
+    List<Article> findAllByOrderByWriteDateDesc();
 
     void deleteById(Long aLong);
 }

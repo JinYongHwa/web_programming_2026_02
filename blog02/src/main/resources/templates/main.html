@@ -28,12 +28,25 @@
 </head>
 <body>
     <div class="container">
+        <!-- 로그인이 안되있을때        -->
+        <div th:if="${user} == null">
+            <a href="/login" class="btn btn-primary">로그인</a>
+        </div>
+        <!-- 로그인이 되어있을때        -->
+        <div th:if="${user} != null">
+            <div th:text="${user.name}"></div>
+            <a href="/logout" class="btn btn-primary">로그아웃</a>
+        </div>
+
         <div class="text-right">
             <a href="/write" class="btn btn-primary">글쓰기</a>
         </div>
         <a th:href="@{/view/{no}(no=${article.no})}" class="article" th:each="article : ${list}">
             <div class="title" th:text="${article.title}">글제목</div>
             <div class="date" th:text="${article.writeDate}">글작성시간</div>
+            <div th:if="${article.writer} != null">
+                작성자 : <span th:text="${article.writer.name}"></span>
+            </div>
         </a>
     </div>
 </body>
